@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [
     {
         "name": "theme_info",
@@ -7,4 +8,15 @@
         "theme_documentation_url": "https://lwt-basic-theme.myshopify.com",
         "theme_support_url": "https://lwt-basic-theme.myshopify.com"
     }
+=======
+[
+    {
+        "name": "theme_info",
+        "theme_name": "LWT Basic Theme",
+        "theme_version": "1.0.0",
+        "theme_author": "LWT",
+        "theme_documentation_url": "https://lwt-basic-theme.myshopify.com",
+        "theme_support_url": "https://lwt-basic-theme.myshopify.com"
+    }
+>>>>>>> b498538125321684f7f502904f37c5947c326e41
 ]
