@@ -1,0 +1,3 @@
+[environments.starter]
+store = "lwt-starter-theme"
+store-password = "123"
