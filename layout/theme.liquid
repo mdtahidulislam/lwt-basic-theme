@@ -12,7 +12,7 @@
     {{ 'style.css' | | asset_url | | stylesheet_tag }}
     {{content_for_header}}
 </head>
-<body id={{ page_title | handleize }} class="{{ template }}">
+<body id={{ page_title | handleize }} class="{{ template }} {% if template.name == 'product' %}{{ product.handle }}{% endif %} {% if template.name == 'collection' %}{{ collection.handle }}{% endif %}">
     {{content_for_layout}}
 
     {% comment %} all js {% endcomment %}
