@@ -13,7 +13,11 @@
     {{content_for_header}}
 </head>
 <body id={{ page_title | handleize }} class="{{ template }} {% if template.name == 'product' %}{{ product.handle }}{% endif %} {% if template.name == 'collection' %}{{ collection.handle }}{% endif %}">
-    {{content_for_layout}}
+    {% comment %} header {% endcomment %}
+     {% sections 'header-group' %}
+    <main>
+        {{content_for_layout}}
+    </main>
 
     {% comment %} all js {% endcomment %}
      <script src="{{ 'jquery.js' | asset_url }}" defer="defer"></script>
