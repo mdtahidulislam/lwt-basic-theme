@@ -7,5 +7,15 @@
         "theme_author": "LWT",
         "theme_documentation_url": "https://lwt-basic-theme.myshopify.com",
         "theme_support_url": "https://lwt-basic-theme.myshopify.com"
+    },
+    {
+        "name": "logo",
+        "settings": [
+            {
+                "type": "image_picker",
+                "id": "logo",
+                "label": "Logo"
+            }
+        ]
     }
 ]
