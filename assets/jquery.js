@@ -10,7 +10,11 @@
 <<<<<<< HEAD
 /*! jQuery v3.7.1 | (c) OpenJS Foundation and other contributors | jquery.org/license */
 =======
+<<<<<<< HEAD
 /*! jQuery v3.7.1 | (c) OpenJS Foundation and other contributors | jquery.org/license */
+=======
+/*! jQuery v3.7.1 | (c) OpenJS Foundation and other contributors | jquery.org/license */
+>>>>>>> 128d28d415b03d43d134b734b46ed4f20b07b4e9
 >>>>>>> 4ea282e77cec9064531ceadbdd88db63b547e0d6
 >>>>>>> 00b1041dd9d8df64b00b5209a4a6047a20db57c4
 >>>>>>> 47480e36fa4162c7192730f0487df9316727d9da
