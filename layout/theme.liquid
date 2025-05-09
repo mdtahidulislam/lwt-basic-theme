@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="{{ request.locale.iso_code }}">
 <head>
@@ -25,4 +26,33 @@
      <script src="{{ 'popper.js' | asset_url }}" defer="defer"></script>
      <script src="{{ 'bootstrap.min.js' | asset_url }}" defer="defer"></script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="{{ page_description }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <title>{{ page_title }}</title>
+    {% comment %} all css {% endcomment %}
+    {{ 'boostrap.css' | asset_url | stylesheet_tag }}
+    {{ 'style.css' | | asset_url | | stylesheet_tag }}
+    {{content_for_header}}
+</head>
+<body id={{ page_title | handleize }} class="{{ template }} {% if template.name == 'product' %}{{ product.handle }}{% endif %} {% if template.name == 'collection' %}{{ collection.handle }}{% endif %}">
+    {% comment %} header {% endcomment %}
+    {% comment %} test {% endcomment %}
+     {% sections 'header-group' %}
+    <main>
+        {{content_for_layout}}
+    </main>
+
+    {% comment %} all js {% endcomment %}
+     <script src="{{ 'jquery.js' | asset_url }}" defer="defer"></script>
+     <script src="{{ 'popper.js' | asset_url }}" defer="defer"></script>
+     <script src="{{ 'bootstrap.min.js' | asset_url }}" defer="defer"></script>
+</body>
+>>>>>>> 3246e5950e088e06aa30b3131583056bc869b664
 </html>
