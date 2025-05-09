@@ -1,4 +1,5 @@
 [environments.basic]
 store = "lwt-basic-theme"
 store-password = "123"
+theme = "lwt-basic-theme/main"
 theme-editor-sync = true
