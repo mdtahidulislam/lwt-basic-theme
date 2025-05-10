@@ -1,0 +1,43 @@
+{% style %}
+	.cart {
+		padding: 100px 0;
+	}
+{% endstyle %}
+<section class="cart">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<h1>Cart</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<div class="cart-items">
+					{% if cart != blank %}
+						{% for item in cart.items %}
+							<h3>{{ item.product.title }}</h3>
+							<p>Original price: {{ item.original_price | money }}</p>
+							<p>Quantity: {{ item.quantity }}</p>
+							<p>Line Item Price: {{ item.original_line_price | money }}</p>
+						{% endfor %}
+					{% else %}
+						<h2>Cart is Empty</h2>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+{% schema %}
+{
+	"name": "Main cart",
+	"class": "lwt-cart",
+	"settings": [],
+	"presets": [
+		{
+			"name": "Main cart"
+		}
+	]
+}
+{% endschema %}
