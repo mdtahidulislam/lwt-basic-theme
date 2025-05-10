@@ -12,9 +12,16 @@
     "banner": {
       "type": "banner",
       "settings": {}
+    },
+    "featured_collcetion": {
+      "type": "featured-collection",
+      "settings": {
+        "col_num": 4
+      }
     }
   },
   "order": [
-    "banner"
+    "banner",
+    "featured_collcetion"
   ]
 }
