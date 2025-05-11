@@ -7,21 +7,17 @@
 		font-weight: 700;
 		margin-bottom: 10px;
 	}
+	.lwt-thumbnail:not(.active) {
+		display: none;
+	}
 {% endstyle %}
 {% assign current_variant = product.selected_or_first_available_variant %}
-{% assign featured_image = current_variant.featured_image | default: product.featured_image %}
 <section class="main-product">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="product-left">
-					<img
-						src="{{ featured_image.src | image_url: width: 500 }}"
-						width="500"
-						height="auto"
-						alt="{{ featured_image.alt }}"
-						id="thumbnail"
-					>
+					{% render 'product-thumbnail-viewer', product: product %}
 				</div>
 			</div>
 			<div class="col-lg-6">
