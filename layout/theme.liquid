@@ -27,5 +27,56 @@
 		<script src="{{ 'jquery.js' | asset_url }}" defer="defer"></script>
 		<script src="{{ 'popper.js' | asset_url }}" defer="defer"></script>
 		<script src="{{ 'bootstrap.min.js' | asset_url }}" defer="defer"></script>
+		{% if template.name == 'product' and product.has_only_default_variant == false %}
+			<script src="{{ 'option_selection.js' | shopify_asset_url }}" defer="defer"></script>
+			<script
+				defer="defer"
+			>
+				document.addEventListener('DOMContentLoaded', event => {
+				                {% comment %} claaback function {% endcomment %}
+				                var selectCallback = function (variant, selector) {
+				                    if(variant){
+                                        console.log(variant);
+                                        console.log(selector);
+				                                    // variant
+				                                                if(variant.available){
+				                                                    $('#add-to-cart-btn').removeAttr('disabled').val('Add to Cart')
+				                                                } else {
+				                                                    $('#add-to-cart-btn').val('Sold Out')
+				                                                }
+                                                                // update price
+                                                                if(variant.compare_at_price > variant.price){
+                                                                    $('#varint-price').html(`
+                                                                            <span class="sale-price">${Shopify.formatMoney(variant.price, '{{ shop.money_with_currency_format }}')} </span>
+                                                                            <s>
+                                                                                <span class="compare-price">${Shopify.formatMoney(variant.compare_at_price, '{{ shop.money_with_currency_format }}')}</span>
+                                                                            </s>
+                                                                        `) 
+                                                                } else {
+                                                                    $('#varint-price').html(`
+                                                                        <span class="regular-price">${Shopify.formatMoney(variant.price, '{{ shop.money_with_currency_format }}')}</span>
+                                                                    `)
+                                                                }
+                                                                // update image
+                                                                if(variant.featured_media){
+                                                                    var srcImg = variant.featured_media.preview_image.src
+                                                                    $('#thumbnail').attr('src', srcImg);
+                                                                }
+				                                } else {
+				                                    // variant does not exists
+				                                    $('#add-to-cart-btn').val('Unavailable').attr('disabled', 'disabled')
+				                                }
+				                }
+				                {% comment %} initialize option selector {% endcomment %}
+				                 jQuery(function($){
+				                    new Shopify.OptionSelectors('varint-select', {
+				                        product: {{ product | json }},
+				                        onVariantSelected: selectCallback,
+                                        enableHistoryState: true
+				                    });
+				                })
+				            })
+			</script>
+		{% endif %}
 	</body>
 </html>

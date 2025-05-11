@@ -2,6 +2,11 @@
 	.main-product {
 		padding: 100px 0;
 	}
+	.selector-wrapper label {
+		display: block;
+		font-weight: 700;
+		margin-bottom: 10px;
+	}
 {% endstyle %}
 {% assign current_variant = product.selected_or_first_available_variant %}
 {% assign featured_image = current_variant.featured_image | default: product.featured_image %}
@@ -12,21 +17,22 @@
 				<div class="product-left">
 					<img
 						src="{{ featured_image.src | image_url: width: 500 }}"
-						width="auto"
+						width="500"
 						height="auto"
 						alt="{{ featured_image.alt }}"
+						id="thumbnail"
 					>
 				</div>
 			</div>
 			<div class="col-lg-6">
 				<div class="prodcut-right">
 					<h3>{{ product.title }}</h3>
-					<div>
-						<span>{{ product.price | money }}</span>
+					<div id="varint-price">
+						<span>{{ current_variant.price | money }}</span>
 						<s>
 							<span>
-								{%- if product.compare_at_price > product.price -%}
-									{{- product.compare_at_price -}}
+								{%- if current_variant.compare_at_price > current_variant.price -%}
+									{{- current_variant.compare_at_price -}}
 								{%- endif -%}
 							</span>
 						</s>
@@ -34,7 +40,19 @@
 					<p>{{ product.description }}</p>
 					<div class="product-from">
 						{% form 'product', product %}
-							<input type="hidden" name="id" value="{{ current_variant.id }}">
+							{% comment %} <input type="hidden" name="id" value="{{ current_variant.id }}"> {% endcomment %}
+							{% if product.has_only_default_variant %}
+								<input type="hidden" name="id" value="{{ current_variant.id }}">
+							{% else %}
+								<select name="id" id="varint-select">
+									{% for variant in product.variants %}
+										<option value="{{ variant.id }}">
+											{{ variant.title }} - {{ variant.price | money }}
+										</option>
+									{% endfor %}
+								</select>
+							{% endif %}
+
 							<input
 								type="number"
 								name="quantity"
@@ -43,7 +61,15 @@
 								max="{{ current_variant.inventory_quantity }}"
 								value="1"
 							>
-							<input type="submit" value="Add to Cart">
+
+							<input
+								type="submit"
+								value="Add to Cart"
+								id="add-to-cart-btn"
+								{% if current_variant.available == false %}
+									disabled="disabled"
+								{% endif %}
+							>
 							{{ form | payment_button }}
 						{% endform %}
 					</div>
