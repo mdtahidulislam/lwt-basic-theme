@@ -17,7 +17,12 @@
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="product-left">
+					{% comment %} Thumbnail {% endcomment %}
 					{% render 'product-thumbnail-viewer', product: product %}
+					{% comment %} Gallery {% endcomment %}
+					<div class="lwt-gallery-viewer">
+						{% render 'product-gallery-viewer', product: product %}
+					</div>
 				</div>
 			</div>
 			<div class="col-lg-6">
@@ -74,6 +79,32 @@
 		</div>
 	</div>
 </section>
+
+<script>
+	document.addEventListener('DOMContentLoaded', event => {
+		const galleries = document.querySelectorAll('.lwt-gallery')
+		galleries.forEach(gallery => {
+			gallery.addEventListener('click', function () {
+				const mediaId = this.getAttribute('data-media-id')
+				{% comment %} active stste {% endcomment %}
+	               galleries.forEach(g => g.classList.remove('active'))
+	               this.classList.add('active')
+
+	                  const thumbnails = document.querySelectorAll('.lwt-thumbnail')
+	                  thumbnails.forEach(thumbnail => {
+	                      thumbnail.classList.remove('active');
+	                      if(thumbnail.getAttribute('data-media-target') === mediaId ){
+	                          thumbnail.classList.add('active');
+	                      }
+	                  })
+			})
+
+
+		})
+
+
+	})
+</script>
 
 {% schema %}
 {
