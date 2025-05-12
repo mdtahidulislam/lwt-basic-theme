@@ -60,7 +60,15 @@
 			                                                              // update image
 			                                                              if(variant.featured_media){
 			                                                                  var srcImg = variant.featured_media.preview_image.src
-			                                                                  $('#thumbnail').attr('src', srcImg);
+                                                                              var srcImgID = variant.featured_media.id
+                                                                              console.log(srcImgID);
+                                                                              {% comment %} thumbnail {% endcomment %}
+                                                                              $('[data-media-target]').removeClass('active')
+                                                                              $('[data-media-target="'+srcImgID+'"]').addClass('active')
+                                                                              {% comment %} gallery {% endcomment %}
+                                                                              $('[data-media-id]').removeClass('active')
+                                                                              $('[data-media-id="'+srcImgID+'"]').addClass('active')
+			                                                                  {% comment %} $('#thumbnail').attr('src', srcImg); {% endcomment %}
 			                                                              }
 					                                } else {
 					                                    // variant does not exists
