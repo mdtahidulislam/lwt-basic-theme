@@ -1,0 +1,57 @@
+<section class="p-5">
+	<div class="container">
+		<div class="row">
+			<div class="text-center p-5">
+				<h1>Collection</h1>
+			</div>
+		</div>
+		<div class="row border-bottom mb-4">
+			<div class="col-lg-9"></div>
+			<div class="col-lg-3 mb-4">
+				{% assign selected_option = collection.sort_by | default: collection.default_sort_by %}
+				<div>
+					Sort by:
+					<form action="">
+						<select name="sort_by">
+							{% for option in collection.sort_options %}
+								<option
+									value="{{ option.value }}"
+									{% if selected_option == option.value %}
+										selected="selected"
+									{% endif %}
+								>
+									{{ option.name }}
+								</option>
+							{% endfor %}
+						</select>
+						<button type="submit">Submit</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			{% paginate collection.products by 8 %}
+				{% for product in collection.products %}
+					<div class="col-lg-3 mb-4">
+						{% render 'product-card', product: product %}
+					</div>
+				{% endfor %}
+				<div class="text-center">
+					{{ paginate | default_pagination }}
+				</div>
+			{% endpaginate %}
+		</div>
+	</div>
+</section>
+{% schema %}
+{
+	"name": "Colection",
+	"class": "lwt-collection",
+	"settings": [],
+	"presets": [
+		{
+			"name": "Colection"
+		}
+	]
+}
+{% endschema %}
