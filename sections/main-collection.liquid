@@ -12,7 +12,7 @@
 				<div>
 					Sort by:
 					<form action="">
-						<select name="sort_by">
+						<select name="sort_by" id="sort_by">
 							{% for option in collection.sort_options %}
 								<option
 									value="{{ option.value }}"
@@ -24,7 +24,7 @@
 								</option>
 							{% endfor %}
 						</select>
-						<button type="submit">Submit</button>
+						{% comment %} <button type="submit">Submit</button> {% endcomment %}
 					</form>
 				</div>
 			</div>
@@ -43,6 +43,28 @@
 		</div>
 	</div>
 </section>
+
+<script>
+	// {'sort_by': 'value', ...}
+	Shopify.queryParams = {}
+	if (location.search.length) {
+		const params = location.search.substr(1).split('&') // ['sort_by=price-descending','filter=stock']
+		for (var i = 0; i < params.length; i++) {
+			var keyValue = params[i].split('=') // ['sort_by', 'value']
+
+			if (keyValue.length) {
+				Shopify.queryParams[keyValue[0]] = keyValue[1]
+			}
+		}
+	}
+	const selectElm = document.querySelector('#sort_by')
+	selectElm.addEventListener('change', function (e) {
+		var slectedOption = e.target.value
+		Shopify.queryParams.sort_by = slectedOption
+		location.search = new URLSearchParams(Shopify.queryParams).toString()
+	})
+</script>
+
 {% schema %}
 {
 	"name": "Colection",
