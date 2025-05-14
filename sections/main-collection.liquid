@@ -30,16 +30,94 @@
 			</div>
 		</div>
 		<div class="row">
-			{% paginate collection.products by 8 %}
-				{% for product in collection.products %}
-					<div class="col-lg-3 mb-4">
-						{% render 'product-card', product: product %}
-					</div>
-				{% endfor %}
-				<div class="text-center">
-					{{ paginate | default_pagination }}
+			<div class="col-lg-3">
+				<div class="d-flex justify-content-between">
+					<h2>Filter</h2>
+					<a href="{{ collection.url }}">Clear All</a>
 				</div>
-			{% endpaginate %}
+				<form>
+					{% for filter in collection.filters %}
+						<details>
+							<summary>{{ filter.label }}</summary>
+							<div>
+								{% case filter.type %}
+									{% when 'boolean' %}
+										<p>Boolen</p>
+									{% when 'list' %}
+										<div class="d-flex justify-content-between border-bottom">
+											<span>{{ filter.active_values.size }} selected</span>
+											<span>
+												<a href="{{ filter.url_to_remove }}">Reset</a>
+											</span>
+										</div>
+										<ul>
+											{% for filter_value in filter.values %}
+												<li>
+													<label for="filter-{{ filter.param_name }}-{{ forloop.index }}">
+														<input
+															type="checkbox"
+															name="{{ filter.param_name }}"
+															value="{{ filter_value.value }}"
+															id="filter-{{ filter.param_name }}-{{ forloop.index }}"
+															{% if filter_value.active %}
+																checked
+															{% endif %}
+														>
+														{{ filter_value.label }} </label
+													>({{ filter_value.count }})
+												</li>
+											{% endfor %}
+										</ul>
+										<input type="submit" value="submit">
+									{% when 'price_range' %}
+										<a href="{{ filter.url_to_remove }}">Reset</a>
+										<div>
+											{{ cart.currency.symbol }}
+											<input
+												type="number"
+												placeholder="0"
+												min="0"
+												name="{{ filter.min_value.param_name }}"
+												value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+											>
+										</div>
+										-
+										<div>
+											{{ cart.currency.symbol }}
+											<input
+												type="number"
+												placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+												min="0"
+												max="{{ filter.range_max | money_without_currency }}"
+												name="{{ filter.max_value.param_name }}"
+												value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+											>
+										</div>
+										<input type="submit" value="submit">
+									{% else %}
+
+								{% endcase %}
+							</div>
+						</details>
+
+						<br>
+					{% endfor %}
+				</form>
+			</div>
+			<div class="col-lg-9">
+				<div class="row">
+					{% paginate collection.products by 8 %}
+						{% for product in collection.products %}
+							<div class="col-lg-3 mb-4">
+								{% render 'product-card', product: product %}
+							</div>
+						{% endfor %}
+						<div class="text-center">
+							{{ paginate | default_pagination }}
+						</div>
+					{% endpaginate %}
+				</div>
+			</div>
 		</div>
 	</div>
 </section>
