@@ -41,7 +41,7 @@
 					                                    // variant
 					                                                if(variant.available){
 					                                                    $('#add-to-cart-btn').removeAttr('disabled').val('Add to Cart')
-					                                                } else {
+					                                                } else if(variant.available === 'false') {
 					                                                    $('#add-to-cart-btn').val('Sold Out')
 					                                                }
 			                                                              // update price
