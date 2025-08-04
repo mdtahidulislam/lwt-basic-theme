@@ -42,7 +42,7 @@
 					                                                if(variant.available){
 					                                                    $('#add-to-cart-btn').removeAttr('disabled').val('Add to Cart')
 					                                                } else {
-					                                                    $('#add-to-cart-btn').val('Sold Out')
+					                                                    $('#add-to-cart-btn').val('Sold Out').attr('disabled', 'disabled')
 					                                                }
 			                                                              // update price
 			                                                              if(variant.compare_at_price > variant.price){
